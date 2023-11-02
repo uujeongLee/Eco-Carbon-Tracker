@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n" />
+        </Console>
+        <!--
+        <File name="file" fileName="./logs/file/sample.log" append="false">
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+        </File>
+        -->
+    </Appenders>
+    <Loggers>
+        <Logger name="business" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </Logger>
+        <Logger name="java.sql" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        <Logger name="egovframework" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        <!-- log SQL with timing information, post execution -->
+        <logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="org.apache" level="ERROR" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <!-- logger 제거 -->
+        <logger name="jdbc.resultset" level="OFF"/>
+        <logger name="jdbc.audit"     level="OFF"/>
+
+        <Root level="DEBUG">
+            <appender-ref ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
