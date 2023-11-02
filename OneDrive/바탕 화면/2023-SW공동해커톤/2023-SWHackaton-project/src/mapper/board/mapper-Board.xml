@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	
+	<insert id="insertElecApp" parameterType= "java.util.HashMap">
+	INSERT INTO  ELEC_APP 
+	(
+		APT_NM
+		,BSNS_REGI_NUMBER
+		,ADDR 
+		,APPR_DE 
+		,RPRS_PHONE_NUM 
+		,EXCL_AREA_1 
+		,EXCL_AREA_2 
+		,EXCL_AREA_3 
+		,EXCL_AREA_4 
+		,EXCL_AREA_5 
+		,EXCL_AREA_6 
+		,EXCL_AREA_7 
+		,EXCL_AREA_8 
+		,EXCL_AREA_9
+		,EXCL_AREA_10 
+		,EXCL_AREA_UNIT_NUM_1
+		,EXCL_AREA_UNIT_NUM_2 
+		,EXCL_AREA_UNIT_NUM_3 
+		,EXCL_AREA_UNIT_NUM_4 
+		,EXCL_AREA_UNIT_NUM_5 
+		,EXCL_AREA_UNIT_NUM_6 
+		,EXCL_AREA_UNIT_NUM_7 
+		,EXCL_AREA_UNIT_NUM_8 
+		,EXCL_AREA_UNIT_NUM_9 
+		,EXCL_AREA_UNIT_NUM_10
+		,AVG_EXCL_AREA
+		,TOTAL_AREA_UNIT_NUM 
+		,CNTR_POWER
+		,WARTER_POWER 
+		,SUBS_CPCT 
+		,TRANS_OWNER_STATUS_1 
+		,TRANS_OWNER_STATUS_2 
+		,TRANS_OWNER_STATUS_3 
+		,TRANS_OWNER_STATUS_4 
+		,TRANS_OWNER_STATUS_5 
+		,TRANS_OWNER_STATUS_6 
+		,TRANS_OWNER_STATUS_7 
+		,TRANS_OWNER_STATUS_8 
+		,TRANS_OWNER_STATUS_9 
+		,TRANS_OWNER_STATUS_10 
+		,TRANS_OWNER_NUM_1 
+		,TRANS_OWNER_NUM_2 
+		,TRANS_OWNER_NUM_3 
+		,TRANS_OWNER_NUM_4 
+		,TRANS_OWNER_NUM_5 
+		,TRANS_OWNER_NUM_6 
+		,TRANS_OWNER_NUM_7 
+		,TRANS_OWNER_NUM_8 
+		,TRANS_OWNER_NUM_9 
+		,TRANS_OWNER_NUM_10 
+		,TRANS_YYYY1 
+		,TRANS_YYYY2 
+		,TRANS_YYYY3 
+		,TRANS_YYYY4 
+		,TRANS_YYYY5 
+		,TRANS_YYYY6 
+		,TRANS_YYYY7 
+		,TRANS_YYYY8 
+		,TRANS_YYYY9 
+		,TRANS_YYYY10 
+		,TRANS_TOTAL_CPCT 
+		,TRANS_PER_CPCT 
+		,CONTRACT_NM 
+		,CONTRACT_POSITION 
+		,MBL_PHONE_NUM 
+		,EMAIL_ADDR 
+		,INSPECTION_DE 
+		,INSPECTION_METHOD 
+		,REASON_SUPPORT 
+		,REGI_DE
+		,REGI_NM
+		,REGI_PHONE_NUM
+		,USE_PERSONAL_INFO
+	)
+	VALUES
+	(
+		
+		#{aptName}
+		,#{regNum1}||#{regNum2}
+		,TO_CHAR(#{address},'00000')|| ' ' ||#{address2}|| ' ' ||#{address3}
+		,#{startYearMonth}
+		,TO_CHAR(#{phoneNum1},'000')||#{phoneNum2, jdbcType=VARCHAR}||#{phoneNum3, jdbcType=VARCHAR}
+		,#{exclusiveArea1}
+		,#{exclusiveArea2}
+		,#{exclusiveArea3}
+		,#{exclusiveArea4}
+		,#{exclusiveArea5}
+		,#{exclusiveArea6}
+		,#{exclusiveArea7}
+		,#{exclusiveArea8}
+		,#{exclusiveArea9}
+		,#{exclusiveArea10}
+		,#{aptGeneration1}
+		,#{aptGeneration2}
+		,#{aptGeneration3}
+		,#{aptGeneration4}
+		,#{aptGeneration5}
+		,#{aptGeneration6}
+		,#{aptGeneration7}
+		,#{aptGeneration8}
+		,#{aptGeneration9}
+		,#{aptGeneration10}
+		,#{avgExclusiveArea}
+		,#{aptGeneration}
+		,#{contractPower}
+		,#{voltage}
+		,#{capacity}
+		,#{transformerCapacity1}
+		,#{transformerCapacity2}
+		,#{transformerCapacity3}
+		,#{transformerCapacity4}
+		,#{transformerCapacity5}
+		,#{transformerCapacity6}
+		,#{transformerCapacity7}
+		,#{transformerCapacity8}
+		,#{transformerCapacity9}
+		,#{transformerCapacity10}
+		,#{transformerMount1}
+		,#{transformerMount2}
+		,#{transformerMount3}
+		,#{transformerMount4}
+		,#{transformerMount5}
+		,#{transformerMount6}
+		,#{transformerMount7}
+		,#{transformerMount8}
+		,#{transformerMount9}
+		,#{transformerMount10}
+		,#{transformerYYYY1}
+		,#{transformerYYYY2}
+		,#{transformerYYYY3}
+		,#{transformerYYYY4}
+		,#{transformerYYYY5}
+		,#{transformerYYYY6}
+		,#{transformerYYYY7}
+		,#{transformerYYYY8}
+		,#{transformerYYYY9}
+		,#{transformerYYYY10}
+		,#{totalTransformerCapacity}
+		,#{avgTransformerCapacity}
+		,#{manageName}
+		,#{managePosition}
+		,TO_CHAR(#{managePhoneNum1},'000')||#{managePhoneNum2, jdbcType=VARCHAR}||#{managePhoneNum3, jdbcType=VARCHAR}
+		,#{mailId}||'@'||#{mailAddress}
+		,#{desireDate}
+		,#{diagnonsis}
+		,#{applicationReason}
+		,SYSDATE
+		,#{userNm}
+		,TO_CHAR(#{phoneNum},'00000000000')
+		,DEFAULT
+	
+	) 
+	
+	</insert>
+	
+	<select id="selectRegiInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	 select * 
+	   from ELEC_APP 
+	  where REGI_NM = #{userNm}
+		AND REGI_PHONE_NUM = #{phoneNum}
+	</select>
+	
+	<select id="selectBusinessProg" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	/*Board.selectBusinessProg*/
+		SELECT  a.NUM, a."TYPE", a."METHOD", a.SITU, a.APPLICANT, a.rown, a.RECEIPT, a.CMPET
+		FROM (	
+			SELECT b.NUM, b."TYPE", b."METHOD", b.SITU, b.APPLICANT, b.RECEIPT, b.CMPET, ROWNUM AS rown
+			FROM (		
+				SELECT NUM, "TYPE", "METHOD", SITU, TO_CHAR(RECEIPT,'YYYY-MM-DD') RECEIPT, TO_CHAR(CMPET,'YYYY-MM-DD') CMPET, APPLICANT
+				FROM MGSETEST.BSINS_PROG
+				WHERE 1=1
+				<if test='searchType != null and !searchType.equals("all")'>
+					AND "TYPE" = #{searchType}
+				</if>
+				<if test='situ !=null and !situ.equals("0")'>
+					AND "SITU" = ${situ}
+				</if>
+				
+				<if test='applicant !=null'>
+					AND "APPLICANT" LIKE '%' || #{applicant} || '%'
+				</if>
+				ORDER BY NUM DESC
+				) b
+			) a
+		WHERE a.rown between #{start} and #{end}
+		
+	</select>
+	
+	<select id="selectBusinessProgCount" resultType="int">
+	/*Board.selectBusinessProgCount*/
+		SELECT COUNT(NUM) CNT
+		FROM MGSETEST.BSINS_PROG
+		WHERE 1=1
+		<if test='searchType != null and !searchType.equals("all")'>
+			AND "TYPE" = #{searchType}
+		</if>
+		<if test='situ !=null and !situ.equals("0")'>
+			AND "SITU" = ${situ}
+		</if>
+		
+		<if test='applicant !=null'>
+			AND "APPLICANT" LIKE '%' || #{applicant} || '%'
+		</if>
+	</select>
+	
+	<insert id="insertBusinessProg" parameterType="java.util.HashMap">
+	/*Board.insertBusinessProg*/
+		INSERT INTO MGSETEST.BSINS_PROG
+		(NUM, "TYPE", "METHOD", RECEIPT, CMPET, SITU, APPLICANT)
+		VALUES(
+			(SELECT NVL(MAX(NUM), 0) + 1 FROM MGSETEST.BSINS_PROG), 
+			#{type}, 
+			#{method}, 
+			#{receipt}, 
+			#{cmpet}, 
+			#{situ}, 
+			#{applicant}
+			)
+	</insert>
+</mapper>

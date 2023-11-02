@@ -1,0 +1,11 @@
+##========================================================================================
+## 버튼리스트 HTML 영역
+##========================================================================================
+
+#if (${isBtnAuth} == true)
+    #if ($type && $type == 'button')
+      <button type="button" id='${id}' class='${cls}' style='${style}'>${title}</button>
+    #else
+      <a href='javascript:#void;' id='${id}' class='${cls}' style='${style}'>${title}</a>
+    #end
+#end
