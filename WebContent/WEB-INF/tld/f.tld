@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="EUC-KR" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>f</short-name>
+
+    <function>
+        <description>mid</description>
+        <name>mid</name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>String mid( java.lang.String, int, int )</function-signature>
+        <example> ${ f:mid() } </example>
+    </function>
+
+    <function>
+        <description>defaultString</description>
+        <name>defaultString</name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>String defaultString( java.lang.String )</function-signature>
+        <example> ${ f:defaultString() } </example>
+    </function>
+
+    <function>
+        <description>defaultIfEmpty</description>
+        <name>defaultIfEmpty</name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>String defaultIfEmpty( java.lang.String, java.lang.String )</function-signature>
+        <example> ${ f:defaultIfEmpty() } </example>
+    </function>
+
+    <function>
+        <description>split</description>
+        <name>split</name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>String[] split( java.lang.String, char )</function-signature>
+        <example> ${ f:split() } </example>
+    </function>
+
+    <function>
+        <description>replaceChars</description>
+        <name>replaceChars</name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>String replaceChars( java.lang.String, java.lang.String, java.lang.String )</function-signature>
+        <example> ${ f:replaceChars() } </example>
+    </function>
+
+    <function>
+        <description>escapeHtml</description>
+        <name>escapeHtml</name>
+        <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+        <function-signature>String escapeHtml( java.lang.String )</function-signature>
+        <example> ${ f:escapeHtml() } </example>
+    </function>
+
+    <function>
+        <description>unescapeHtml</description>
+        <name>unescapeHtml</name>
+        <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+        <function-signature>String unescapeHtml( java.lang.String )</function-signature>
+        <example> ${ f:unescapeHtml() } </example>
+    </function>
+
+    <function>
+        <description>getToday</description>
+        <name>getToday</name>
+        <function-class>common.util.CommUtils</function-class>
+        <function-signature>String getToday( java.lang.String )</function-signature>
+        <example> ${ f:getToday() } </example>
+    </function>
+
+
+</taglib>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   					   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	   					   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<context:component-scan base-package="business">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+    <context:annotation-config/>
+
+	<context:property-placeholder location="classpath:/config/globals.properties"/>
+
+	<!-- 국제화 Message 설정 -->
+	<bean id="messageSource" class="egovframework.com.cmm.util.EgovWildcardReloadableResourceBundleMessageSource">
+		<property name="egovBasenames">
+			<list>
+				<value>classpath*:config/messages/*</value> <!-- 전자정부 설정방식   classpath*: -->
+				<value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</value>
+				<value>classpath:/egovframework/rte/fdl/property/messages/properties</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="60" />
+		<property name="useCodeAsDefaultMessage" value="true" />
+	</bean>
+
+    <bean id="message" class="egovframework.com.cmm.EgovMessageSource">
+        <property name="reloadableResourceBundleMessageSource">
+            <ref bean="messageSource" />
+        </property>
+    </bean>
+
+    <bean id="leaveaTrace" class="egovframework.rte.fdl.cmmn.trace.LeaveaTrace">
+        <property name="traceHandlerServices">
+            <list>
+                <ref bean="traceHandlerService" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
+        <property name="reqExpMatcher">
+            <ref bean="antPathMater" />
+        </property>
+        <property name="patterns">
+            <list><value>*</value></list>
+        </property>
+        <property name="handlers">
+            <list><ref bean="defaultTraceHandler" /></list>
+        </property>
+    </bean>
+
+    <bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
+
+    <bean id="defaultTraceHandler" class="egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler" />
+
+
+    <!-- MyBatis Common DAO : 공통 DAO 사용시 -->
+    <bean autowire-candidate="true" id="commonMapper" class="commf.dao.CommonMapperImpl"/>
+
+	<!-- UserInfo Session -->
+	<bean autowire-candidate="true" id="userInfo" class="common.user.UserInfo" scope="session">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+
+	<!-- File Manager -->
+	<bean id="fileManager" class="common.file.FileManager" />
+
+	<!-- Velocity Support -->
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="parser.pool.size">100</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
